@@ -1,7 +1,8 @@
 package com.example.LMS_feedback.controller;
 
 import com.example.LMS_feedback.model.Feedback;
-import com.example.LMS_feedback.service.FeedBackService;
+
+import com.example.LMS_feedback.service.FeedbackService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,10 +15,10 @@ import java.util.Optional;
 public class FeedbackController {
 
     @Autowired
-    private FeedBackService.FeedbackService service;
+    private FeedbackService service;
 
     @GetMapping("/getFeedback/{id}")
-    public ResponseEntity<Feedback> getFeedback(@PathVariable Long id) {
+    public ResponseEntity<Feedback> getFeedback(@PathVariable String id) {
         Feedback feedback = service.getFeedbackById(id);
         if (feedback != null) {
             return ResponseEntity.ok(feedback);
@@ -44,12 +45,12 @@ public class FeedbackController {
 
     }
     @PutMapping("/updateFeedback/{id}")
-    public ResponseEntity<Feedback> updatefeedback(@PathVariable Long id,@RequestBody  Feedback feedback){
+    public ResponseEntity<Feedback> updatefeedback(@PathVariable String id,@RequestBody  Feedback feedback){
         Feedback f=service.updateFeedback(id,feedback);
         return ResponseEntity.ok(f);
     }
     @DeleteMapping("/deleteFeedback/{id}")
-    public ResponseEntity<Feedback> deletefeedback(@PathVariable Long id){
+    public ResponseEntity<Feedback> deletefeedback(@PathVariable String id){
         service.deleteFeedback(id);
         return ResponseEntity.noContent().build();
     }
@@ -58,6 +59,17 @@ public class FeedbackController {
         List<Feedback> f = service.createbatchFeedback(feedback);
 
         return ResponseEntity.ok(f);
+
+    }
+
+    @GetMapping("/getFeedbackByUC/{id}")
+    public ResponseEntity<Feedback> getFeedbackByUserCourse(@PathVariable String id) {
+        Feedback feedback = service.getfeedbackbyusercourseid(id);
+        if (feedback != null) {
+            return ResponseEntity.ok(feedback);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
 
     }
 

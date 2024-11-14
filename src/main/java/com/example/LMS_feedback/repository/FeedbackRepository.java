@@ -8,6 +8,8 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface FeedbackRepository extends MongoRepository<Feedback,Long> {
-    Optional<Feedback> findByFeedbackId(Long feedbackId);
+public interface FeedbackRepository extends MongoRepository<Feedback,String> {
+    Optional<Feedback> findByFeedbackId(String feedbackId);
+    Optional<Feedback> findByUserCourseId(String userCourseId);
+
 }

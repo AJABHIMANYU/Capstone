@@ -16,8 +16,8 @@ import java.time.LocalDate;
 public class Feedback {
 
     @Id
-    private Long feedbackId;
-    private Long userCourseId;
+    private String feedbackId;
+    private String userCourseId;
     private Integer rating;
     private String comments;
     private LocalDate feedbackDate;

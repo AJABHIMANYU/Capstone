@@ -9,11 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class FeedBackService {
-
-    @Service
-
-    public class FeedbackService {
+public class FeedbackService {
 
         @Autowired
         private FeedbackRepository repo;
@@ -22,15 +18,15 @@ public class FeedBackService {
             return repo.findAll();
         }
 
-        public Feedback getFeedbackById(Long feedbackId) {
+        public Feedback getFeedbackById(String feedbackId) {
             Optional<Feedback> op = repo.findByFeedbackId(feedbackId);
-            if(op.isPresent()){
+            if (op.isPresent()) {
                 return op.get();
-            }
-            else{
+            } else {
                 throw new RuntimeException("Feedback not found with id " + feedbackId);
             }
         }
+
         public List<Feedback> createbatchFeedback(List<Feedback> feedbacks) {
             return repo.saveAll(feedbacks);
         }
@@ -39,7 +35,7 @@ public class FeedBackService {
             return repo.save(feedback);
         }
 
-        public Feedback updateFeedback(Long feedbackId, Feedback feedbackDetails) {
+        public Feedback updateFeedback(String feedbackId, Feedback feedbackDetails) {
             Optional<Feedback> feedbackOptional = repo.findByFeedbackId(feedbackId);
 
             if (feedbackOptional.isPresent()) {
@@ -54,9 +50,22 @@ public class FeedBackService {
             }
         }
 
-        public void deleteFeedback(Long feedbackId) {
+        public void deleteFeedback(String feedbackId) {
             repo.deleteById(feedbackId);
         }
+
+
+        public Feedback getfeedbackbyusercourseid(String userCourseId) {
+
+            Optional<Feedback> op = repo.findByUserCourseId(userCourseId);
+            if (op.isPresent()) {
+                return op.get();
+            } else {
+                throw new RuntimeException("Feedback not found with id " + userCourseId);
+            }
+        }
+
     }
 
-}
+
+
